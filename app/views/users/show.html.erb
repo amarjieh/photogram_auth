@@ -19,13 +19,13 @@
         <h3 class="panel-title">
           <a href="/users/<%= @user.id %>"><%= @user.username %></a>
           <small>
-            timeememememe
+            <%= time_ago_in_words(photo.created_at) %>
           </small>
         </h3>
       </div>
 
       <div class="panel-body">
-        <a href="/photos/1">
+        <a href="/photos/<%= photo.id %>">
           <img src=<%= photo.image %> class="img-responsive">
         </a>
 
@@ -43,11 +43,17 @@
               </button>
 
 
+      		 <%= photo.fans.pluck(:username).to_sentence %>
+              
+			  
+			  <% if photo.likes.count == 0 %>
+			  	be the first one to like this
+			  <% elsif photo.likes.count == 1 %>
+			  	likes this
+			  <% else %>
+			  	like this
+			  <% end %>      
 
-
-
-            
-    
         </form>
         </p>
 
@@ -59,7 +65,7 @@
               <h6 class="media-heading">
                 <a href="/users/<%= comment.user_id %>"><%= comment.user_id %></a>
                 <small>
-                  timememememememe
+                  <%= time_ago_in_words(comment.created_at) %>
                 </small>
               </h6>
               <%= comment.body %>
