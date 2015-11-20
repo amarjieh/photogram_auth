@@ -1,0 +1,97 @@
+<p>
+ 
+ <div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="jumbotron">
+      <h3>
+        <%= @user.username %>
+      </h3>
+    </div>
+  </div>
+</div>
+
+
+<% @user.photos.each do |photo| %>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a href="/users/<%= @user.id %>"><%= @user.username %></a>
+          <small>
+            timeememememe
+          </small>
+        </h3>
+      </div>
+
+      <div class="panel-body">
+        <a href="/photos/1">
+          <img src=<%= photo.image %> class="img-responsive">
+        </a>
+
+        <p>
+            <form action="/create_like" method="post">
+              <!-- Hidden input for authenticity token to protect from forgery -->
+              <input name="authenticity_token" type="hidden" value="sHopk91QylGbXboDQG4I6gfFWp4n48kGFDTJv1LEJlS2kSAFcil3p3e7LUmYmVZJWTkZa0bINu616jYgUkApqQ==">
+
+              <input type="hidden" name="photo_id" value="<%= photo.id %>">
+
+              <input type="hidden" name="user_id" value="<%= @user.id %>">
+
+              <button class="btn btn-link">
+                <i class="fa fa-heart-o"></i>
+              </button>
+
+
+
+
+
+            
+    
+        </form>
+        </p>
+
+        <ul class="media-list">
+
+          <% photo.comments.each do |comment| %>	
+          <li class="media">
+            <div class="media-body">
+              <h6 class="media-heading">
+                <a href="/users/<%= comment.user_id %>"><%= comment.user_id %></a>
+                <small>
+                  timememememememe
+                </small>
+              </h6>
+              <%= comment.body %>
+            </div>
+          </li>
+          <% end %>
+
+
+          <li class="media">
+            <div class="media-body">
+              <form action="/create_comment" method="post">
+                <!-- Hidden input for authenticity token to protect from forgery -->
+                <input name="authenticity_token" type="hidden" value="kqERPworccbdzTGyAKlutCVTix25ASeo7uJwKhKZlyKUShippVLMMDErpvjYXjAXe6/I6Ngq2EBPPI+1Eh2Y3w==">
+
+                <input type="hidden" name="photo_id" value="1">
+
+                <input type="hidden" name="user_id" value="2">
+
+                <!-- Label and input for body -->
+                <div class="form-group">
+                  <label for="body" class="sr-only">
+                    Body
+                  </label>
+
+                  <input type="text" id="body" name="body" placeholder="Add a comment..." class="form-control" required>
+                </div>
+              </form>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
